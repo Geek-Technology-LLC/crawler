@@ -27,7 +27,6 @@ class Crawler {
      * @param {String} data
      */
   _saveInfo(data) {
-
   }
 
   /**
