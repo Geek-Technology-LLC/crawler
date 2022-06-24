@@ -8,25 +8,31 @@ import * as https from "https"
 class Crawler {
 
     /**
-     * @param url - website url as string
-     * @param targets - targeted HTML element info as json object
-     * @param config - crawler options as json object
+     * @param {String} url - website url as string
+     * @param {Object} targets - targeted HTML element info as json object
+     * @param {Object} config - crawler options as json object
      */
     constructor(baseUrl, targets, config) {
         this.url = baseUrl
         this.targets = targets
         this.config = config
+        this._startRequest()
+    }
+
+    getData() {
     }
 
     /**
-     *
+     * 
+     * @param {String} data 
      */
-    parseToJSON() {
+    _saveInfo(data) {
+
     }
 
     /**
      * if request is succeed, it will call callback function
-     * @param callback - function
+     * @param {Function} callback - function
      */
     _startRequest(callback) {
         console.log("🚀 Request started!")
@@ -45,6 +51,7 @@ class Crawler {
                 }
                 console.log("fetched HTML content")
                 console.table(resInfo)
+                callback(data)
             })
         })
         request.on("error", error => {
