@@ -1,4 +1,5 @@
 import * as https from "https";
+import * as http from "http";
 /**
  * Crawler base class
  * @author B.Nyamkhuu
@@ -16,49 +17,45 @@ class Crawler {
     this.url = baseUrl;
     this.targets = targets;
     this.config = config;
-    this._startRequest(this._saveInfo);
-  }
-
-  getData() {
-  }
-
-  /**
-     *
-     * @param {String} data
-     */
-  _saveInfo(data) {
   }
 
   /**
      * if request is succeed, it will call callback function
      * @param {Function} callback - function
      */
-  _startRequest(callback) {
+  async startRequest() {
     console.log("🚀 Request started!");
     const options = {
-      hostName: this.url,
-      method  : this.config?.method || "GET",
-      path    : this.config?.path || "/",
-      port    : this.config?.port || 80
+      hostname: this.url,
+      method  : this.config.method || "GET",
+      path    : this.config.path || "/",
+      port    : this.config.port || 80
     };
-    const request = https.request(options, res => {
-      res.on("data", data => {
-        const resInfo = {
-          statusCode   : res?.statusCode,
-          responseTime : res?.responseTime,
-          contentLength: res?.contentLength
-        };
-        console.log("fetched HTML content");
-        console.table(resInfo);
-        callback(data);
-      });
+    const requester = http;
+    if (this.config.isSsl) {
+      requester = https;
+    }
+    return new Promise((resolve, reject) => {
+      requester.request(options, res => {
+        let body = "";
+        res.on("data", chunk => {
+          body +=chunk.toString();
+        });
+        res.on("end", () => {
+          const resInfo = {
+            statusCode: res.statusCode,
+          };
+          console.log("fetched HTML content");
+          console.table(resInfo);
+          console.log(" Request finished! 🚀");
+          resolve(body);
+        });
+        res.on("error", error => {
+          console.log("Error occured!", error);
+          reject(error);
+        });
+      }).end();
     });
-    request.on("error", error => {
-      console.log("Error occured!", error);
-      return null;
-    });
-    request.end();
-    console.log(" Request finished! 🚀");
   }
 }
 
