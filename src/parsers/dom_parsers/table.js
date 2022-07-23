@@ -7,6 +7,7 @@ class TableParser {
 
   /**
    *
+   * @param {String} data
    * @param {Object} params
    */
   constructor(data, params) {
