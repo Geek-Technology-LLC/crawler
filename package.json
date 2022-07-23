@@ -16,7 +16,9 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "nats": "^2.7.1",
-    "node-html-parser": "^5.3.3"
+    "node-html-parser": "^5.3.3",
+    "xmldom": "^0.6.0",
+    "xpath": "0.0.32"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
