@@ -1,3 +1,5 @@
+import { DOMParser } from "xmldom";
+import { select } from "xpath";
 
 /**
  *
@@ -20,6 +22,14 @@ class XPath {
    */
   toJSON(data) {
     const result = {};
+    const doc = new DOMParser().parseFromString(data);
+
+    let keys = Object.keys(this.params);
+    for (let i = 0; i < keys.length; i+=1) {
+      const key = keys[i];
+      const selected = select(key.xpath, doc);
+      result[key.name] = selected.length > 0 ? selected[0].firstChild.data : null;
+    }
     return result;
   }
 }
