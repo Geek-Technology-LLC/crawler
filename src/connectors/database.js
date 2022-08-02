@@ -17,9 +17,10 @@ class Neo4j {
    *
    * @param {Object} template
    * @param {Object} data
+   * @returns instance of Neo4j
    */
   saveWithTemplate(template, data) {
-
+    return this;
   }
 }
 
