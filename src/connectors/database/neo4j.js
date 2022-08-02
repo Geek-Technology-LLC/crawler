@@ -14,7 +14,7 @@ class Neo4j {
   }
 
   /**
-   *
+   * save data into database
    * @param {Object} template
    * @param {Object} data
    * @returns instance of Neo4j
