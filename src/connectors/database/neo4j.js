@@ -1,3 +1,4 @@
+import { Driver } from "neo4j-driver";
 
 /**
  *
@@ -11,6 +12,7 @@ class Neo4j {
    */
   constructor(config) {
     this.config = config;
+    this.conn = Driver();
   }
 
   /**

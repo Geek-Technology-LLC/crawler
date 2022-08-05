@@ -28,7 +28,9 @@ class XPath {
     for (let i = 0; i < keys.length; i+=1) {
       const key = keys[i];
       const selected = select(key.xpath, doc);
-      result[key.name] = selected.length > 0 ? selected[0].firstChild.data : null;
+      if (selected.length > 0) {
+        result[key.name] = selected[0].firstChild.data;
+      }
     }
     return result;
   }
